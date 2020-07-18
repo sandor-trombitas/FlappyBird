@@ -9,6 +9,8 @@ function Ground:init(path, scrollSpeed, x, y)
     self.scrollSpeed = scrollSpeed or 0
     self.x = x or 0
     self.y = y and (y - self.image:getHeight() * constants.SCALING_FACTOR) or 0
+    self.height = self.image:getHeight()
+    self.width = self.image:getWidth()
 end
 
 function Ground:setY(y)

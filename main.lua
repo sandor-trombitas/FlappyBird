@@ -30,6 +30,8 @@ function love.update(dt)
     background:update(dt)
     ground:update(dt)
     bird:update(dt)
+
+    bird:collide(ground)
 end
 
 function love.keypressed(key)
