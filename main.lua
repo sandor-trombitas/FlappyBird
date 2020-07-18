@@ -3,9 +3,11 @@ local constants = require './constants'
 local Background = require './Entities/Background'
 local Ground = require './Entities/Ground'
 local Bird = require './Entities/Bird'
+local Pipe = require './Entities/Pipe'
 
 local background = Background:new()
 local ground = Ground:new()
+local Pipe = Pipe:new()
 local bird = Bird:new()
 
 function love.load()
@@ -23,12 +25,14 @@ function love.load()
 
     background:init('Assets/background.png', 30)
     ground:init('Assets/ground.png', 120, 0, love.graphics.getHeight())
+    pipe:init()
     bird:init()
 end
 
 function love.update(dt)
     background:update(dt)
     ground:update(dt)
+    pipe:update(dt)
     bird:update(dt)
 
     bird:collide(ground)
@@ -42,6 +46,7 @@ end
 
 function love.draw()
     background:draw()
+    pipe:draw()
     ground:draw()
     bird:draw()
 end
