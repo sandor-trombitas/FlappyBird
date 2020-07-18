@@ -1,21 +1,35 @@
 -- imports
 local constants = require './constants'
+local Background = require './Entities/Background'
+local Ground = require './Entities/Ground'
+local Bird = require './Entities/Bird'
 
-local background
-local ground
+local background = Background:new()
+local ground = Ground:new()
+local bird = Bird:new()
 
 function love.load()
-    -- Set Filter to nearest, to remove blur when scaling images
-    love.graphics.setDefaultFilter('nearest', 'nearest')
-
-    background = love.graphics.newImage('Assets/background.png')
-    ground = love.graphics.newImage('Assets/ground.png')
     -- Init screen
     love.window.setMode(constants.WINDOW_WIDTH, constants.WINDOW_HEIGHT, {
         fullscreen = false,
         vsync = true,
         resizable = false
     })
+    love.window.setTitle('Flapper Bird')
+
+    -- Set Filter to nearest, to remove blur when scaling images
+    love.graphics.setDefaultFilter('nearest', 'nearest')
+    love.keyboard.setKeyRepeat(false)
+
+    background:init('Assets/background.png', 30)
+    ground:init('Assets/ground.png', 120, 0, love.graphics.getHeight())
+    bird:init()
+end
+
+function love.update(dt)
+    background:update(dt)
+    ground:update(dt)
+    bird:update(dt)
 end
 
 function love.keypressed(key)
@@ -25,6 +39,7 @@ function love.keypressed(key)
 end
 
 function love.draw()
-    love.graphics.draw(background, 0, 0, 0, 4, 4)
-    love.graphics.draw(ground, 0, love.graphics.getHeight() - 128, 0, 4, 4)
+    background:draw()
+    ground:draw()
+    bird:draw()
 end
